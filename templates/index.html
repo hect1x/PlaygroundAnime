@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Recommender</title>
+    <link rel="stylesheet" href="../static/styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#recommendation-form').on('submit', function(e) {
+                e.preventDefault(); 
+    
+                const title = $('#title-input').val(); 
+    
+                $.ajax({
+                    type: 'POST',
+                    url: '/recommend',
+                    data: { title: title },
+                    success: function(response) {
+                        $('#results').empty(); 
+                        
+                        // Clear the search bar
+                        $('#title-input').val('');
+    
+                        if (response && response.length > 0) { // Check if response has recommendations
+                            response.forEach(item => {
+                                $('#results').append(`
+                                    <div class="anime-card">
+                                        <div class="image-container">
+                                            <img src="${item.image_url}" alt="${item.normal_title}" class="anime-image">
+                                            <h3 class="anime-title">${item.normal_title}</h3> 
+                                        </div>
+                                    </div>
+                                `);
+                            });
+                        } else {
+                            $('#results').append('<p>No recommendations found.</p>'); // in case not found
+                        }
+                    },
+                    error: function(error) {
+                        console.log("Error:", error);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Anime Recommender</h1>
+    <form id="recommendation-form">
+        <input type="text" id="title-input" name="title" placeholder="Enter anime title" required>
+        <button type="submit">Find</button>
+    </form>
+
+    <h2>Recommendations</h2>
+    <div id="results">
+        <!-- jquery will do its work here -->
+    </div>
+</body>
+</html>

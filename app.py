@@ -2,7 +2,6 @@ from flask import Flask , render_template, jsonify, request
 import pandas as pd
 import ast, difflib
 import requests, os
-from io import BytesIO
 import base64
 #google colab link to retrieve data processing
 # https://colab.research.google.com/drive/1CnBUjkGxKm2F-vaQBRA6FvpX1mhcD-5n?usp=sharing
@@ -90,7 +89,7 @@ def generateImage():
     api_url = "https://api-inference.huggingface.co/models/Ojimi/anime-kawai-diffusion"
 
     headers = {
-        "Authorization": "Bearer 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"
+        "Authorization": "Bearer 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"
     }
 
     data = {

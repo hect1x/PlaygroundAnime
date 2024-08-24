@@ -90,7 +90,7 @@ def generateImage():
     api_url = "https://api-inference.huggingface.co/models/Ojimi/anime-kawai-diffusion"
 
     headers = {
-        "Authorization": "Bearer ur-api-key"
+        "Authorization": "Bearer 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"
     }
 
     data = {

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playground</title>
+    <link rel="stylesheet" href="../static/styles.css">
+    <link rel="stylesheet" href="../static/layout.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#generate-form').on('submit' , function(e){
+                e.preventDefault();
+
+                const prompt = $('#prompt-input').val();
+                $('#generated-image').empty();
+                $('#prompt-input').val('');
+                $.ajax({
+                    type: 'POST',
+                    url: '/generate-image',
+                    data: { prompt : prompt},
+                    success: function(response){
+                        
+
+                        if(response.image) {
+                            $('#generated-image').html('<img src="data:image/png;base64,' + response.image + '" />');
+                        } else {
+                            $('#generated-image').html('<p>Error generating image</p>');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Recommend</a></li>
+            <li><a href="/generate">Generate</a></li>
+        </ul>
+    </nav>
+    <h1>Enter Prompt to (Ojimi's Model)</h1>
+    <form id="generate-form">
+        <input type="text" id="prompt-input" name="prompt" placeholder="Enter prompt" required>
+        <button type="submit">Find</button>
+    </form>
+
+    <h2>Image (Might take a while)</h2>
+    <div class="generated">
+        <div id="generated-image">
+            <!-- jquery will do its work here -->
+        </div>
+    </div>
+    
+</body>
+</html>

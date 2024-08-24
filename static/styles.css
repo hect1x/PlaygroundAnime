@@ -16,12 +16,15 @@ h1,h2 {
 p{
     font-size: 1.5rem;
 }
+
 #recommendation-form, #generate-form {
     text-align: center;
     margin-bottom: 20px;
 }
 
+
 #title-input, #prompt-input {
+
     padding: 10px;             
     font-size: 16px;               
     border-radius: 15px;         
@@ -78,5 +81,4 @@ button:hover {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-
 }

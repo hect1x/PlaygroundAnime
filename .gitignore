@@ -3,3 +3,4 @@ final_df.csv
 similarity_scores.csv
 top_anime_data_dirty.csv
 __pycache__
+.env

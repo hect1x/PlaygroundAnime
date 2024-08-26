@@ -8,29 +8,29 @@
     <link rel="stylesheet" href="../static/layout.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function(){
-            $('#generate-form').on('submit' , function(e){
+        $(document).ready(function() {
+            $('#llm-form').on('submit', function(e){
                 e.preventDefault();
 
                 const prompt = $('#prompt-input').val();
-                $('#generated-image').empty();
                 $('#prompt-input').val('');
+
                 $.ajax({
                     type: 'POST',
-                    url: '/generate-image',
-                    data: { prompt : prompt},
+                    url: '/generate-text',
+                    data: { prompt : prompt },
                     success: function(response){
-                        
 
-                        if(response.image) {
-                            $('#generated-image').html('<img src="data:image/png;base64,' + response.image + '" />');
+                        if (response.text) {
+                            $('#response').text(response.text); // Update the response div with the text
                         } else {
-                            $('#generated-image').html('<p>Error generating image</p>');
+                            $('#response').text('No text returned from the server.'); // Handle case where no text is returned
                         }
                     }
-                });
-            });
-        });
+                })
+            })
+        })
+        
     </script>
 </head>
 <body>
@@ -41,18 +41,15 @@
             <li><a href="/llmPage">LLama</a></li>
         </ul>
     </nav>
-    <h1>Enter Prompt to (Ojimi's Model)</h1>
-    <form id="generate-form">
+    <h1>Generate Texts</h1>
+    <form id="llm-form">
         <input type="text" id="prompt-input" name="prompt" placeholder="Enter prompt" required>
         <button type="submit">Send</button>
     </form>
 
-    <h2>Image (Might take a while)</h2>
-    <div class="generated">
-        <div id="generated-image">
-            <!-- jquery will do its work here -->
-        </div>
+    <h2>Response: </h2>
+    <div id="response" style="color: white;">
+        <!-- jquery will do its work here -->
     </div>
-    
 </body>
 </html>
